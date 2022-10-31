@@ -4,7 +4,8 @@
     prepareNumbers(state);
     prepareActions(state);
     prepareEqual(state);
-
+    clear(state);
+    deleteLastNumber(state);
  };
 
 function render(screenValue) {
@@ -79,4 +80,28 @@ function highlightButton(state) {
     }    
 };
 
+function clear(state) {
+    const buttonAc = document.querySelector('.clear');
+    buttonAc.addEventListener("click", function() {
+        initState(state);
+        result = 0;
+        render(result);
+        highlightButton(state);
+    })
+};
+
+function deleteLastNumber(state) {
+    const deleteButton = document.querySelector('.erase');
+    deleteButton.addEventListener("click", function() {
+        if (state.action === null) {
+        const currentFirstValue = String(state.firstValue);
+        state.firstValue = Number(currentFirstValue.slice(0, currentFirstValue.length - 1));
+        render(state.firstValue);
+        } else {
+            const currentSecondValue = String(state.secondValue);
+            state.secondValue = Number(currentSecondValue.slice(0, currentSecondValue.length - 1));
+            render(state.secondValue); 
+            }
+    })
+};
  main();
